@@ -18,7 +18,7 @@
     minimaxGroupId: '',
     targetLang: 'zh-CN',
     sourceLang: 'auto',
-    model: 'deepseek-chat',
+    model: 'deepseek-v4-flash',
     enableFloatButton: true,
     autoTranslate: false,
     maxTokens: 300,

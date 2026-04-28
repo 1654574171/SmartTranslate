@@ -24,7 +24,7 @@ function getDefaultSettings() {
     minimaxGroupId: '',
     targetLang: 'zh-CN',
     sourceLang: 'auto',
-    model: 'deepseek-chat',
+    model: 'deepseek-v4-flash',
     enableFloatButton: true,
     autoTranslate: false,
     maxTokens: 300,
@@ -74,7 +74,7 @@ async function translateWithDeepSeek(text, targetLang, settings) {
       'Authorization': `Bearer ${settings.deepseekApiKey}`
     },
     body: JSON.stringify({
-      model: settings.model || 'deepseek-chat',
+      model: settings.model || 'deepseek-v4-flash',
       messages: [
         {
           role: 'system',

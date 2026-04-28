@@ -7,7 +7,7 @@ const DEFAULT_SETTINGS = {
   minimaxGroupId: '',
   targetLang: 'zh-CN',
   sourceLang: 'auto',
-  model: 'deepseek-chat',
+  model: 'deepseek-v4-flash',
   enableFloatButton: true,
   autoTranslate: false,
   maxTokens: 300,
@@ -44,7 +44,7 @@ function loadSettings() {
 
     // 模型
     const modelSelect = document.getElementById('deepseekModel');
-    if (modelSelect) modelSelect.value = s.model || 'deepseek-chat';
+    if (modelSelect) modelSelect.value = s.model || 'deepseek-v4-flash';
 
     // 翻译设置
     document.getElementById('targetLang').value = s.targetLang || 'zh-CN';

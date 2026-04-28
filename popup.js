@@ -6,7 +6,7 @@ const DEFAULT_SETTINGS = {
   minimaxApiKey: '',
   targetLang: 'zh-CN',
   sourceLang: 'auto',
-  model: 'deepseek-chat'
+  model: 'deepseek-v4-flash'
 };
 
 // ── DOM 引用 ──────────────────────────────────────────────────
