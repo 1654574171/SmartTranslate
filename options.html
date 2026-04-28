@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartTranslate 设置</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" fill="currentColor"/></svg>
+        </div>
+        <div>
+          <div class="brand-name">SmartTranslate</div>
+          <div class="brand-version">v1.0.0</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-tab="provider">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z" fill="currentColor"/></svg>
+          模型配置
+        </a>
+        <a href="#" class="nav-item" data-tab="translate">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" fill="currentColor"/></svg>
+          翻译设置
+        </a>
+        <a href="#" class="nav-item" data-tab="appearance">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" fill="currentColor"/></svg>
+          外观设置
+        </a>
+        <a href="#" class="nav-item" data-tab="about">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/></svg>
+          关于
+        </a>
+      </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <!-- 模型配置 Tab -->
+      <div class="tab-panel active" id="tab-provider">
+        <div class="panel-header">
+          <h2>模型配置</h2>
+          <p>选择翻译服务商并填写 API 密钥</p>
+        </div>
+
+        <!-- 服务商选择 -->
+        <div class="card">
+          <div class="card-title">翻译服务商</div>
+          <div class="provider-grid">
+            <label class="provider-card" id="provider-deepseek">
+              <input type="radio" name="provider" value="deepseek">
+              <div class="provider-card-inner">
+                <div class="provider-icon provider-icon--deepseek">DS</div>
+                <div class="provider-info">
+                  <div class="provider-name">DeepSeek</div>
+                  <div class="provider-desc">高性价比·推理能力强</div>
+                </div>
+                <div class="provider-check">✓</div>
+              </div>
+            </label>
+            <label class="provider-card" id="provider-minimax">
+              <input type="radio" name="provider" value="minimax">
+              <div class="provider-card-inner">
+                <div class="provider-icon provider-icon--minimax">MM</div>
+                <div class="provider-info">
+                  <div class="provider-name">MiniMax</div>
+                  <div class="provider-desc">中文优化·生成质量高</div>
+                </div>
+                <div class="provider-check">✓</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- DeepSeek 配置 -->
+        <div class="card provider-section" id="section-deepseek">
+          <div class="card-title">DeepSeek 配置</div>
+          <div class="form-group">
+            <label class="form-label">
+              API Key
+              <a href="https://platform.deepseek.com/api_keys" target="_blank" class="help-link">
+                获取 Key →
+              </a>
+            </label>
+            <div class="input-wrapper">
+              <input type="password" id="deepseekApiKey" class="form-input" placeholder="sk-xxxxxxxxxxxxxxxx">
+              <button class="toggle-visibility" data-target="deepseekApiKey">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">模型</label>
+            <select id="deepseekModel" class="form-select">
+              <option value="deepseek-chat">deepseek-chat（推荐）</option>
+              <option value="deepseek-reasoner">deepseek-reasoner（推理增强）</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- MiniMax 配置 -->
+        <div class="card provider-section" id="section-minimax" style="display:none;">
+          <div class="card-title">MiniMax 配置</div>
+          <div class="form-group">
+            <label class="form-label">
+              API Key
+              <a href="https://platform.minimaxi.com/user-center/basic-information/interface-key" target="_blank" class="help-link">
+                获取 Key →
+              </a>
+            </label>
+            <div class="input-wrapper">
+              <input type="password" id="minimaxApiKey" class="form-input" placeholder="eyJhbGciOiJSUzI1NiJ9...">
+              <button class="toggle-visibility" data-target="minimaxApiKey">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">
+              Group ID
+              <a href="https://platform.minimaxi.com/user-center/basic-information" target="_blank" class="help-link">
+                查看 →
+              </a>
+            </label>
+            <input type="text" id="minimaxGroupId" class="form-input" placeholder="1234567890">
+          </div>
+        </div>
+
+        <button class="btn-primary" id="saveProviderBtn">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z" fill="currentColor"/></svg>
+          保存配置
+        </button>
+        <div class="save-toast" id="providerToast">✓ 已保存</div>
+      </div>
+
+      <!-- 翻译设置 Tab -->
+      <div class="tab-panel" id="tab-translate">
+        <div class="panel-header">
+          <h2>翻译设置</h2>
+          <p>配置翻译行为与语言偏好</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">语言设置</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">默认目标语言</label>
+              <select id="targetLang" class="form-select">
+                <option value="zh-CN">简体中文</option>
+                <option value="zh-TW">繁体中文</option>
+                <option value="en">英语</option>
+                <option value="ja">日语</option>
+                <option value="ko">韩语</option>
+                <option value="fr">法语</option>
+                <option value="de">德语</option>
+                <option value="es">西班牙语</option>
+                <option value="ru">俄语</option>
+                <option value="ar">阿拉伯语</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">翻译行为</div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">自动翻译</div>
+              <div class="toggle-desc">选中文字后直接显示翻译面板（无需点击图标）</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="autoTranslate">
+              <span class="toggle-thumb"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">显示翻译按钮</div>
+              <div class="toggle-desc">选中文字后在附近显示小图标</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="enableFloatButton" checked>
+              <span class="toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">高级参数</div>
+          <div class="form-group">
+            <label class="form-label">最大 Token 数 <span class="form-hint" id="maxTokensVal">300</span></label>
+            <input type="range" id="maxTokens" class="form-range" min="100" max="1000" step="50" value="300">
+            <div class="range-labels"><span>100</span><span>1000</span></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">温度 (创造性) <span class="form-hint" id="temperatureVal">0.3</span></label>
+            <input type="range" id="temperature" class="form-range" min="0" max="1" step="0.1" value="0.3">
+            <div class="range-labels"><span>精确 0</span><span>创意 1</span></div>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="saveTranslateBtn">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z" fill="currentColor"/></svg>
+          保存设置
+        </button>
+        <div class="save-toast" id="translateToast">✓ 已保存</div>
+      </div>
+
+      <!-- 外观设置 Tab -->
+      <div class="tab-panel" id="tab-appearance">
+        <div class="panel-header">
+          <h2>外观设置</h2>
+          <p>自定义翻译面板的视觉样式</p>
+        </div>
+        <div class="card">
+          <div class="card-title">主题色</div>
+          <div class="color-grid">
+            <label class="color-swatch" style="--c: linear-gradient(135deg,#6366f1,#8b5cf6)">
+              <input type="radio" name="theme" value="purple" checked>
+              <span class="color-check">✓</span>
+            </label>
+            <label class="color-swatch" style="--c: linear-gradient(135deg,#3b82f6,#06b6d4)">
+              <input type="radio" name="theme" value="blue">
+              <span class="color-check">✓</span>
+            </label>
+            <label class="color-swatch" style="--c: linear-gradient(135deg,#10b981,#059669)">
+              <input type="radio" name="theme" value="green">
+              <span class="color-check">✓</span>
+            </label>
+            <label class="color-swatch" style="--c: linear-gradient(135deg,#f59e0b,#ef4444)">
+              <input type="radio" name="theme" value="orange">
+              <span class="color-check">✓</span>
+            </label>
+            <label class="color-swatch" style="--c: linear-gradient(135deg,#ec4899,#f43f5e)">
+              <input type="radio" name="theme" value="pink">
+              <span class="color-check">✓</span>
+            </label>
+            <label class="color-swatch" style="--c: linear-gradient(135deg,#374151,#111827)">
+              <input type="radio" name="theme" value="dark">
+              <span class="color-check">✓</span>
+            </label>
+          </div>
+        </div>
+        <div class="card coming-soon">
+          <div class="coming-soon-inner">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/></svg>
+            更多外观定制功能开发中…
+          </div>
+        </div>
+        <button class="btn-primary" id="saveAppearanceBtn">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z" fill="currentColor"/></svg>
+          保存外观
+        </button>
+        <div class="save-toast" id="appearanceToast">✓ 已保存</div>
+      </div>
+
+      <!-- 关于 Tab -->
+      <div class="tab-panel" id="tab-about">
+        <div class="panel-header">
+          <h2>关于</h2>
+          <p>SmartTranslate - AI 划词翻译</p>
+        </div>
+        <div class="card about-card">
+          <div class="about-logo">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z" fill="currentColor"/></svg>
+          </div>
+          <div class="about-name">SmartTranslate</div>
+          <div class="about-version">版本 1.0.0</div>
+          <div class="about-desc">
+            基于大语言模型的智能划词翻译插件，<br>
+            支持 DeepSeek、MiniMax 等多种 AI 服务。
+          </div>
+          <div class="feature-list">
+            <div class="feature-item">
+              <span class="feature-icon">✦</span> 划词即翻译，悬浮显示
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✦</span> 支持 10+ 种目标语言
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✦</span> 多模型灵活切换
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">✦</span> 结果一键复制
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

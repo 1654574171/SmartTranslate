@@ -1,0 +1,333 @@
+/* content.css - 划词翻译浮层样式 */
+
+/* ── 重置与基础 ──────────────────────────────────────────── */
+#smart-translate-btn,
+#smart-translate-panel,
+#smart-translate-panel * {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 
+               'Microsoft YaHei', sans-serif;
+  line-height: 1.5;
+}
+
+/* ── 悬浮小按钮 ──────────────────────────────────────────── */
+#smart-translate-btn {
+  position: absolute;
+  z-index: 2147483646;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease;
+  opacity: 0;
+  user-select: none;
+  border: 2px solid rgba(255,255,255,0.25);
+}
+
+#smart-translate-btn svg {
+  width: 17px;
+  height: 17px;
+  pointer-events: none;
+}
+
+#smart-translate-btn.stp-show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#smart-translate-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+}
+
+#smart-translate-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── 主翻译面板 ──────────────────────────────────────────── */
+#smart-translate-panel {
+  position: absolute;
+  z-index: 2147483647;
+  width: 360px;
+  max-width: calc(100vw - 16px);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 
+    0 4px 6px -1px rgba(0,0,0,0.07),
+    0 10px 30px -5px rgba(0,0,0,0.12),
+    0 0 0 1px rgba(0,0,0,0.05);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+  transition: opacity 0.22s cubic-bezier(0.16,1,0.3,1),
+              transform 0.22s cubic-bezier(0.16,1,0.3,1);
+  user-select: none;
+  pointer-events: auto;
+}
+
+#smart-translate-panel.stp-show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── 头部 ──────────────────────────────────────────────── */
+#smart-translate-panel .stp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 10px 14px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+/* 拖拽时改变光标 */
+#smart-translate-panel.stp-dragging .stp-header {
+  cursor: grabbing;
+}
+
+#smart-translate-panel.stp-dragging {
+  /* 拖动时禁用过渡动画，防止拖拽卡顿 */
+  transition: none !important;
+  box-shadow:
+    0 8px 16px -2px rgba(0,0,0,0.14),
+    0 20px 48px -8px rgba(0,0,0,0.18),
+    0 0 0 1px rgba(0,0,0,0.05);
+}
+
+#smart-translate-panel .stp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+#smart-translate-panel .stp-logo {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+#smart-translate-panel .stp-logo svg {
+  width: 14px;
+  height: 14px;
+  color: white;
+}
+
+#smart-translate-panel .stp-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: white;
+}
+
+#smart-translate-panel .stp-header-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 目标语言下拉 */
+#smart-translate-panel .stp-lang-select {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 11.5px;
+  padding: 3px 20px 3px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  transition: background 0.15s;
+}
+
+#smart-translate-panel .stp-lang-select:hover {
+  background-color: rgba(255,255,255,0.28);
+}
+
+#smart-translate-panel .stp-lang-select option {
+  background: #6366f1;
+  color: white;
+}
+
+/* 图标按钮 */
+#smart-translate-panel .stp-icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+#smart-translate-panel .stp-icon-btn:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+#smart-translate-panel .stp-icon-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+#smart-translate-panel .stp-copy-btn.stp-copied {
+  background: rgba(52, 211, 153, 0.4);
+}
+
+/* ── 原文区域 ──────────────────────────────────────────── */
+#smart-translate-panel .stp-source {
+  padding: 10px 14px 8px;
+  background: #f8f7ff;
+}
+
+#smart-translate-panel .stp-source-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #a78bfa;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: block;
+  margin-bottom: 3px;
+}
+
+#smart-translate-panel .stp-source-text {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.55;
+  max-height: 60px;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* ── 分割线 ──────────────────────────────────────────────── */
+#smart-translate-panel .stp-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e0e7ff 20%, #e0e7ff 80%, transparent);
+  margin: 0;
+}
+
+/* ── 翻译结果区域 ──────────────────────────────────────── */
+#smart-translate-panel .stp-result {
+  padding: 12px 14px 10px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+#smart-translate-panel .stp-translation {
+  font-size: 14px;
+  color: #1e1b4b;
+  line-height: 1.65;
+  word-break: break-word;
+  width: 100%;
+  user-select: text;
+}
+
+/* 加载动画 */
+#smart-translate-panel .stp-loading {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 0;
+}
+
+#smart-translate-panel .stp-dot {
+  width: 7px;
+  height: 7px;
+  background: #a78bfa;
+  border-radius: 50%;
+  animation: stp-bounce 1.2s infinite ease-in-out;
+  display: inline-block;
+}
+
+#smart-translate-panel .stp-dot:nth-child(1) { animation-delay: 0s; }
+#smart-translate-panel .stp-dot:nth-child(2) { animation-delay: 0.2s; }
+#smart-translate-panel .stp-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes stp-bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* 错误状态 */
+#smart-translate-panel .stp-error {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #ef4444;
+  font-size: 12.5px;
+  width: 100%;
+  background: #fff5f5;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+#smart-translate-panel .stp-error svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* ── 底部 ──────────────────────────────────────────────── */
+#smart-translate-panel .stp-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px 10px;
+  border-top: 1px solid #f3f4f6;
+}
+
+#smart-translate-panel .stp-provider {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+#smart-translate-panel .stp-retranslate-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: #8b5cf6;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px 7px;
+  border-radius: 6px;
+  transition: background 0.15s;
+  font-weight: 500;
+}
+
+#smart-translate-panel .stp-retranslate-btn:hover {
+  background: #f3f0ff;
+}
+
+#smart-translate-panel .stp-retranslate-btn svg {
+  width: 12px;
+  height: 12px;
+}

@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "SmartTranslate - AI 划词翻译",
+  "version": "1.0.0",
+  "description": "基于 DeepSeek / MiniMax 大语言模型的智能划词翻译插件",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://api.deepseek.com/*",
+    "https://api.minimax.chat/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "src/icons/icon16.svg",
+      "48": "src/icons/icon48.svg",
+      "128": "src/icons/icon128.svg"
+    }
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"],
+      "css": ["src/content.css"]
+    }
+  ],
+  "icons": {
+    "16": "src/icons/icon16.svg",
+    "48": "src/icons/icon48.svg",
+    "128": "src/icons/icon128.svg"
+  }
+}
