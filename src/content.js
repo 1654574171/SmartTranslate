@@ -10,6 +10,10 @@
   let hideTimer = null;
   let settings = {};
   let extensionContextValid = true;
+  let hoveredParagraph = null;
+  let inlineTranslateInFlight = false;
+  let lastMouseX = 0;
+  let lastMouseY = 0;
 
   const defaultSettings = {
     provider: 'deepseek',
@@ -21,6 +25,9 @@
     model: 'deepseek-v4-flash',
     enableFloatButton: true,
     autoTranslate: false,
+    enableHoverTranslate: false,
+    hoverTranslateKey: 'shift',
+    inlineTranslationStyle: 'quote',
     maxTokens: 300,
     temperature: 0.3
   };
@@ -36,6 +43,7 @@
     createFloatButton();
     createFloatPanel();
     bindEvents();
+    bindSettingsChanges();
   }
 
   async function getSettings() {
@@ -238,14 +246,221 @@
   // ── 绑定全局事件 ──────────────────────────────────────────
   function bindEvents() {
     document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mouseover', onParagraphMouseOver, true);
+    document.addEventListener('mouseout', onParagraphMouseOut, true);
+    document.addEventListener('mousemove', onMouseMove, true);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') hideAll();
-    });
+      handleHoverTranslateShortcut(e);
+    }, true);
     document.addEventListener('click', (e) => {
       if (!floatPanel.contains(e.target) && !floatButton.contains(e.target)) {
         hideAll();
       }
     });
+  }
+
+  function onMouseMove(e) {
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+  }
+
+  function bindSettingsChanges() {
+    if (typeof chrome === 'undefined' || !chrome.storage?.onChanged) return;
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (areaName !== 'sync') return;
+      Object.keys(changes).forEach((key) => {
+        settings[key] = changes[key].newValue;
+      });
+    });
+  }
+
+  function onParagraphMouseOver(e) {
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    const paragraph = findTranslatableParagraph(e.target);
+    if (paragraph) {
+      hoveredParagraph = paragraph;
+    }
+  }
+
+  function onParagraphMouseOut(e) {
+    if (!hoveredParagraph) return;
+    const next = e.relatedTarget;
+    if (next && hoveredParagraph.contains(next)) return;
+    if (e.target === hoveredParagraph || hoveredParagraph.contains(e.target)) {
+      hoveredParagraph = null;
+    }
+  }
+
+  function findTranslatableParagraph(target) {
+    if (!target || target.nodeType !== Node.ELEMENT_NODE) return null;
+    if (target.closest('#smart-translate-panel, #smart-translate-btn, .smart-translate-inline')) return null;
+    if (target.closest('input, textarea, select, button, [contenteditable="true"]')) return null;
+
+    const textSelectors = [
+      'p',
+      'li',
+      'blockquote',
+      'dd',
+      'td',
+      'th',
+      'figcaption',
+      'pre',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      '[role="paragraph"]'
+    ].join(',');
+
+    const semanticBlock = target.closest(textSelectors);
+    if (isValidParagraphBlock(semanticBlock)) return semanticBlock;
+
+    return findNearestReadableBlock(target);
+  }
+
+  function findNearestReadableBlock(start) {
+    let node = start;
+    let depth = 0;
+
+    while (node && node !== document.body && depth < 8) {
+      if (isValidParagraphBlock(node) && isBlockLike(node)) {
+        return node;
+      }
+      node = node.parentElement;
+      depth += 1;
+    }
+
+    return null;
+  }
+
+  function isValidParagraphBlock(node) {
+    if (!node || !document.body.contains(node)) return false;
+    if (node.closest('#smart-translate-panel, #smart-translate-btn, .smart-translate-inline')) return false;
+    const text = getParagraphText(node);
+    if (text.length < 2 || text.length > 2500) return false;
+    return !isMostlyNavigation(node, text);
+  }
+
+  function isBlockLike(node) {
+    const style = window.getComputedStyle(node);
+    return ['block', 'list-item', 'table-cell', 'flow-root'].includes(style.display);
+  }
+
+  function isMostlyNavigation(node, text) {
+    const linkText = Array.from(node.querySelectorAll('a'))
+      .map(link => getParagraphText(link))
+      .join(' ');
+    return linkText.length > 0 && linkText.length / text.length > 0.75;
+  }
+
+  function getParagraphText(paragraph) {
+    return (paragraph.innerText || paragraph.textContent || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function handleHoverTranslateShortcut(e) {
+    if (e.repeat || !settings.enableHoverTranslate || inlineTranslateInFlight) return;
+    if (isTypingTarget(e.target)) return;
+    if (!matchesHoverShortcut(e)) return;
+
+    const paragraph = getParagraphAtPointer();
+    if (!paragraph) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    translateParagraphInline(paragraph);
+  }
+
+  function getParagraphAtPointer() {
+    const pointed = document.elementFromPoint(lastMouseX, lastMouseY);
+    const paragraph = findTranslatableParagraph(pointed);
+    if (paragraph) {
+      hoveredParagraph = paragraph;
+      return paragraph;
+    }
+    if (hoveredParagraph && document.body.contains(hoveredParagraph)) {
+      return hoveredParagraph;
+    }
+    return null;
+  }
+
+  function isTypingTarget(target) {
+    return !!target?.closest?.('input, textarea, select, [contenteditable="true"]');
+  }
+
+  function matchesHoverShortcut(e) {
+    const key = (settings.hoverTranslateKey || 'shift').toLowerCase();
+    if (key === 'shift') return e.key === 'Shift';
+    if (key === 'alt') return e.key === 'Alt';
+    if (key === 'ctrl') return e.key === 'Control';
+    if (key === 'meta') return e.key === 'Meta';
+    return e.key.toLowerCase() === key;
+  }
+
+  async function translateParagraphInline(paragraph) {
+    const text = getParagraphText(paragraph);
+    if (!text) return;
+
+    inlineTranslateInFlight = true;
+    const box = ensureInlineTranslationBox(paragraph);
+    setInlineLoading(box);
+
+    try {
+      settings = await getSettings();
+      box.dataset.style = settings.inlineTranslationStyle || 'quote';
+      const targetLang = settings.targetLang || defaultSettings.targetLang;
+      const response = await sendRuntimeMessage({ action: 'translate', text, targetLang });
+      if (!response?.success) {
+        throw new Error(response?.error || 'Translation failed');
+      }
+      setInlineResult(box, response.translation || '');
+    } catch (err) {
+      setInlineError(box, err.message || 'Translation failed');
+    } finally {
+      inlineTranslateInFlight = false;
+    }
+  }
+
+  function ensureInlineTranslationBox(paragraph) {
+    const next = paragraph.nextElementSibling;
+    if (next?.classList?.contains('smart-translate-inline')) {
+      next.dataset.style = settings.inlineTranslationStyle || 'quote';
+      return next;
+    }
+
+    const box = document.createElement('div');
+    box.className = 'smart-translate-inline';
+    box.dataset.style = settings.inlineTranslationStyle || 'quote';
+    box.innerHTML = `
+      <div class="sti-toolbar">
+        <span class="sti-title">SmartTranslate</span>
+        <button type="button" class="sti-close" title="Close">×</button>
+      </div>
+      <div class="sti-body"></div>
+    `;
+    box.querySelector('.sti-close').addEventListener('click', () => box.remove());
+    paragraph.insertAdjacentElement('afterend', box);
+    return box;
+  }
+
+  function setInlineLoading(box) {
+    box.classList.remove('sti-error');
+    box.querySelector('.sti-body').innerHTML = '<span class="sti-loading">Translating...</span>';
+  }
+
+  function setInlineResult(box, text) {
+    box.classList.remove('sti-error');
+    box.querySelector('.sti-body').textContent = text;
+  }
+
+  function setInlineError(box, message) {
+    box.classList.add('sti-error');
+    box.querySelector('.sti-body').textContent = message;
   }
 
   function onMouseUp(e) {
@@ -271,7 +486,7 @@
         // 自动翻译：直接弹翻译面板
         positionPanel(rect);
         showPanel(text);
-      } else {
+      } else if (settings.enableFloatButton !== false) {
         // 非自动翻译：先显示小图标
         positionButton(rect);
         showFloatButton();

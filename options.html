@@ -208,6 +208,35 @@
               <span class="toggle-thumb"></span>
             </label>
           </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-label">悬浮段落快捷翻译</div>
+              <div class="toggle-desc">鼠标悬浮在段落上时，按下设置的快捷键，在段落下方展开译文</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="enableHoverTranslate">
+              <span class="toggle-thumb"></span>
+            </label>
+          </div>
+          <div class="form-row hover-translate-options">
+            <div class="form-group">
+              <label class="form-label">段落翻译快捷键</label>
+              <select id="hoverTranslateKey" class="form-select">
+                <option value="shift">Shift</option>
+                <option value="alt">Alt</option>
+                <option value="ctrl">Ctrl</option>
+                <option value="meta">Command / Windows</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">段落译文样式</label>
+              <select id="inlineTranslationStyle" class="form-select">
+                <option value="quote">引用样式</option>
+                <option value="gray">灰色背景</option>
+                <option value="plain">简洁分隔线</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="card">
