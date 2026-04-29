@@ -84,3 +84,25 @@ webTranslate/
 - API Key 仅存储在浏览器本地（`chrome.storage.sync`），不会上传到任何服务器
 - 翻译请求由 Chrome 扩展的 Service Worker 发起，规避页面级 CORS 限制
 - 插件不会在任何页面注入广告或收集数据
+
+
+```mermaid
+%%{init: {
+  "theme": "default",
+  "themeVariables": {
+    "fontSize": "90px"
+  },
+  "flowchart": {
+    "nodeSpacing": 25,
+    "rankSpacing": 20
+  }
+}}%%
+
+graph TD
+    A[垃圾分类检测系统功能需求] --> B[图片检测]
+    A --> C[摄像头实时检测]
+    A --> D[检测结果展示]
+    A --> E[垃圾类别映射]
+    A --> F[检测记录管理]
+    A --> G[用户交互]
+```
