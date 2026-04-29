@@ -167,6 +167,26 @@
         </div>
 
         <div class="card">
+          <div class="card-title">提示词设置</div>
+          <div class="form-group">
+            <label class="form-label">翻译领域</label>
+            <select id="translationDomain" class="form-select">
+              <option value="general">通用</option>
+              <option value="cs">计算机 / CS</option>
+              <option value="medical">医学</option>
+              <option value="finance">金融</option>
+              <option value="legal">法律</option>
+              <option value="academic">学术论文</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">自定义翻译提示词</label>
+            <textarea id="customPrompt" class="form-textarea" rows="5" placeholder="例如：保留英文技术术语；术语首次出现时用“中文（English）”；不要解释原文。"></textarea>
+            <div class="field-help">会追加到系统提示词中，留空则只使用默认领域提示词。</div>
+          </div>
+        </div>
+
+        <div class="card">
           <div class="card-title">翻译行为</div>
           <div class="toggle-row">
             <div class="toggle-info">

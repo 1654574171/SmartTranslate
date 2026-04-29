@@ -12,6 +12,8 @@ const DEFAULT_SETTINGS = {
   autoTranslate: false,
   maxTokens: 300,
   temperature: 0.3,
+  translationDomain: 'general',
+  customPrompt: '',
   theme: 'purple'
 };
 
@@ -48,6 +50,8 @@ function loadSettings() {
 
     // 翻译设置
     document.getElementById('targetLang').value = s.targetLang || 'zh-CN';
+    document.getElementById('translationDomain').value = s.translationDomain || 'general';
+    document.getElementById('customPrompt').value = s.customPrompt || '';
     document.getElementById('autoTranslate').checked = !!s.autoTranslate;
     document.getElementById('enableFloatButton').checked = s.enableFloatButton !== false;
 
@@ -125,6 +129,8 @@ document.getElementById('saveProviderBtn').addEventListener('click', () => {
 document.getElementById('saveTranslateBtn').addEventListener('click', () => {
   const toSave = {
     targetLang: document.getElementById('targetLang').value,
+    translationDomain: document.getElementById('translationDomain').value,
+    customPrompt: document.getElementById('customPrompt').value.trim(),
     autoTranslate: document.getElementById('autoTranslate').checked,
     enableFloatButton: document.getElementById('enableFloatButton').checked,
     maxTokens: parseInt(document.getElementById('maxTokens').value),

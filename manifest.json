@@ -6,9 +6,12 @@
   "permissions": [
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "webNavigation",
+    "webRequest"
   ],
   "host_permissions": [
+    "<all_urls>",
     "https://api.deepseek.com/*",
     "https://api.minimax.chat/*"
   ],

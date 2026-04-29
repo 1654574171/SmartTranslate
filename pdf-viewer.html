@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartTranslate PDF Viewer</title>
+  <link rel="stylesheet" href="pdf-viewer.css">
+  <link rel="stylesheet" href="src/content.css">
+</head>
+<body>
+  <header class="pdf-toolbar">
+    <div class="pdf-title">SmartTranslate PDF</div>
+    <div class="pdf-actions">
+      <button id="zoomOutBtn" class="pdf-icon-btn" type="button" title="缩小">-</button>
+      <span id="zoomLabel" class="pdf-zoom-label">100%</span>
+      <button id="zoomInBtn" class="pdf-icon-btn" type="button" title="放大">+</button>
+      <button id="openOriginalBtn" class="pdf-text-btn" type="button">原始 PDF</button>
+    </div>
+  </header>
+
+  <main id="viewerShell" class="pdf-shell">
+    <div id="status" class="pdf-status">正在加载 PDF...</div>
+    <div id="viewer" class="pdf-viewer" aria-label="PDF 文档"></div>
+  </main>
+
+  <script src="vendor/pdf.min.js"></script>
+  <script src="pdf-viewer.js"></script>
+  <script src="src/content.js"></script>
+</body>
+</html>
