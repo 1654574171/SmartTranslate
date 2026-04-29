@@ -10,6 +10,9 @@ const DEFAULT_SETTINGS = {
   model: 'deepseek-v4-flash',
   enableFloatButton: true,
   autoTranslate: false,
+  enableHoverTranslate: false,
+  hoverTranslateKey: 'shift',
+  inlineTranslationStyle: 'quote',
   maxTokens: 300,
   temperature: 0.3,
   translationDomain: 'general',
@@ -54,6 +57,9 @@ function loadSettings() {
     document.getElementById('customPrompt').value = s.customPrompt || '';
     document.getElementById('autoTranslate').checked = !!s.autoTranslate;
     document.getElementById('enableFloatButton').checked = s.enableFloatButton !== false;
+    document.getElementById('enableHoverTranslate').checked = !!s.enableHoverTranslate;
+    document.getElementById('hoverTranslateKey').value = s.hoverTranslateKey || 'shift';
+    document.getElementById('inlineTranslationStyle').value = s.inlineTranslationStyle || 'quote';
 
     // 高级参数
     const maxTokens = document.getElementById('maxTokens');
@@ -133,6 +139,9 @@ document.getElementById('saveTranslateBtn').addEventListener('click', () => {
     customPrompt: document.getElementById('customPrompt').value.trim(),
     autoTranslate: document.getElementById('autoTranslate').checked,
     enableFloatButton: document.getElementById('enableFloatButton').checked,
+    enableHoverTranslate: document.getElementById('enableHoverTranslate').checked,
+    hoverTranslateKey: document.getElementById('hoverTranslateKey').value,
+    inlineTranslationStyle: document.getElementById('inlineTranslationStyle').value,
     maxTokens: parseInt(document.getElementById('maxTokens').value),
     temperature: parseFloat(document.getElementById('temperature').value)
   };
